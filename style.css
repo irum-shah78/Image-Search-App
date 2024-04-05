@@ -28,3 +28,20 @@ form button {
   object-fit: cover;
   transition: transform 0.3s ease-in-out;
 }
+.card a{
+  transition: background-color 0.3s ease-in-out;
+}
+.card a:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 480px){
+  form{
+    flex-direction: column;
+  }
+  form button{
+    margin-top: 10px;
+  }
+  form input{
+    width: 75%;
+  }
+}
