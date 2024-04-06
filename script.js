@@ -19,61 +19,58 @@ async function searchImages() {
 
     if (page === 1) {
         containerElement.innerHTML = "";
+        containerElement.classList.add("d-flex", "justify-content-center", "align-items-center", "ms-5", "ps-3");
     }
 
     const results = data.results;
-    let rowDiv;
-    results.map((result, index) =>{
-        // const imageWrapper = document.createElement("div");
-        // imageWrapper.classList.add("card");
-        // const image = document.createElement("img");
-        // image.src = result.urls.small;
-        // image.alt = result.alt_description;
-        // const imageLink = document.createElement("a");
-        // imageLink.href = result.links.html;
-        // imageLink.target = "_blank";
-        // imageLink.textContent = result.alt_description;
-        // // console.log(imageLink);
 
-        // imageWrapper.appendChild(image);
-        // imageWrapper.appendChild(imageLink);
-        // containerElement.appendChild(imageWrapper);
-        if (index % 3 === 0) {
-            // Start a new row for every third image
-            rowDiv = document.createElement("div");
-            rowDiv.classList.add("row");
-        }
-        const colDiv = document.createElement("div");
-        colDiv.classList.add( "col-lg-6", "col-md-6", "col-12");
+    let row = containerElement.querySelector(".row");
+    if (!row) {
+        row = document.createElement("div");
+        row.classList.add("row");
+        containerElement.appendChild(row);
+    }
 
-        const cardDiv = document.createElement("div");
-        cardDiv.classList.add("card", "mb-3");
+    results.map((result) => {
+
+        const col = document.createElement("div");
+        col.classList.add("col-lg-4", "col-md-6", "col-12");
+
+        const card = document.createElement("div");
+        card.classList.add("card", "mb-3");
+        card.style.width = "22rem";
+        card.style.marginBottom = "20px";
+        card.style.cursor = "pointer";
+        card.style.transition = "transform 0.3s ease-in-out";
 
         const image = document.createElement("img");
+        image.classList.add("card-img-top");
         image.src = result.urls.small;
         image.alt = result.alt_description;
-        image.classList.add("card-img-top");
+        image.style.width = "100%";
+        image.style.height = "250px";
+        image.style.objectFit = "cover";
 
-        const imageLink = document.createElement("a");
-        imageLink.href = result.links.html;
-        imageLink.target = "_blank";
-        imageLink.classList.add("text-dark-emphasis", "p-2", "d-block", "text-decoration-none");
-        imageLink.textContent = result.alt_description;
+        const link = document.createElement("a");
+        link.classList.add("text-dark-emphasis", "p-2", "d-block", "text-decoration-none");
+        link.href = result.links.html;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = result.alt_description;
 
-        cardDiv.appendChild(image);
-        cardDiv.appendChild(imageLink);
-        colDiv.appendChild(cardDiv);
-        // containerElement.appendChild(colDiv);
+        card.appendChild(image);
+        card.appendChild(link);
+        col.appendChild(card);
+        row.appendChild(col);
 
-        rowDiv.appendChild(colDiv);
+    });
 
-        if ((index % 3 === 2) || (index === results.length - 1)) {
-            containerElement.appendChild(rowDiv);
-        }
-    })
+    page++;
+    console.log(page);
 
     if (page > 1) {
-        showMoreButton.style.display = block;
+        showMoreButton.classList.remove("d-none");
+        showMoreButton.classList.add("mb-3")
     }
 }
 
@@ -81,4 +78,8 @@ formElement.addEventListener("submit", (event) => {
     event.preventDefault();
     page = 1;
     searchImages();
-})
+});
+
+showMoreButton.addEventListener("click", (event) => {
+    searchImages();
+});
