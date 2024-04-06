@@ -19,7 +19,7 @@ async function searchImages() {
 
     if (page === 1) {
         containerElement.innerHTML = "";
-        containerElement.classList.add("d-flex", "justify-content-center", "align-items-center", "ms-5", "ps-3");
+        containerElement.classList.add("d-flex", "justify-content-center", "align-items-center", "ms-3", "ps-3");
     }
 
     const results = data.results;
