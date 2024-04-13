@@ -7,7 +7,7 @@ This is a simple web application that allows users to search for images using th
 -  _Pagination:_ Images are loaded dynamically with pagination, allowing users to see more results by clicking the "Show More" button.
 -  _Clickable Images:_ Each image displayed in the grid is clickable and links to the original image source on Unsplash.
 
-# Built with:
+# Built with
 -  HTML5
 -  CSS3
 -  Bootstrap
